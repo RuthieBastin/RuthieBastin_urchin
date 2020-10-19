@@ -1,9 +1,27 @@
 ---
-title: "..."
-author: "..."
-date: "..."
+title: "Découverte du jeu de données portant sur la biométrie d'oursins"
+author: "Ruthie Bastin"
+date: "2020-10-12"
 output: html_notebook
 ---
+
+
+# Introduction 
+L'étude porte sur l'analyse des données recueillies par Professeur Philippe Grosjean portant sur la croissance de *Paracentrosus lividus*
+Le professeur Philippe Grosjean a récolté des espèces provenant de deux milieux : la pêche et l'aquaculture (en milieu pélagique)
+
+# Matériel et méthodes
+Les oursins ont deux origines respectives. Une moitié provient de lapêche, celle-ci a été récoltée sur le terrain de Morgat en Bretagne. L'autre moitié est une espèce provenant d'aquaculture dans la station marint de Luc-Sur-Mer en Normandie. La grande majorité des parents de ceux-ci sont issus du terrain de Morgat. Tous les individus ont été récoltés en 2 temps : Une première fois en septembre et une seconde fois en mars.Procéder de la sortie permet de contrer les variations saisonnières potentielles.
+Les oursins récoltés par professeur Grosjean ont été mesurés avec un pied à coulisse et pesés. Kes mesures sonr exprimées en mm et les masses en g.
+
+
+`r R.version.string` et RStudio version `r rstudioapi::versionInfo()$version` `r if (file.exists("/etc/svbox")) paste("dans", readLines("/etc/svbox")[1])`.
+
+
+
+
+# Résultats
+
 
 ```{r setup}
 SciViews::R
@@ -14,4 +32,52 @@ options(data.io_lang = "fr") # Labels en français
 ```{r importation}
 urchin <- read("urchin_bio", package = "data.io")
 ```
+```{r}
+chart(urchin, formula = height ~ weight %col=% origin) +
+  geom_point()
+```
+
+```{r}
+chart (urchin, formula = solid_parts ~ buoyant_weight%col=% origin) +
+  geom_point(na.rm = TRUE)
+```
+On peut remarquer que les individus provenant de l'élevage ont une masse des parties solides et une masse immergée plus élevée que les individus pêchés. De plus, le graphique démontre, pour tous les individus, la masse des parties solides est généralement 3X plus grande que la masse immergée.
+```{r}
+chart (urchin, formula = weight ~ buoyant_weight%col=% origin) +
+  geom_point(na.rm = TRUE)
+```Nous observons que les individus pêchés possèdent une masse inférieur à celle des individus issus de l'aquaculture
+```{r}
+
+chart (urchin, formula = integuments ~ dry_integuments%col=% origin) +
+  geom_point(na.rm = TRUE)
+```
+```{r}
+chart (urchin, formula = gonads ~ dry_gonads %col=% origin) +
+  geom_point(na.rm = TRUE)
+```
+```{r}
+chart (urchin, formula = digestive_tract ~ dry_digestive_tract %col=% origin) +
+  geom_point(na.rm = TRUE)
+```
+```{r}
+chart (urchin, formula = diameter1 ~ diameter2 %col=% origin) +
+  geom_point(na.rm = TRUE)
+```
+```{r}
+chart (urchin, formula = diameter1 ~ height%col=% origin ) +
+  geom_point(na.rm = TRUE)
+```
+```{r}
+Existe t-il une différence entre les espèces d'oursins délevage et péchées ?
+```
+# Discussion#
+*Paracentrosus lividus*
+
+# Conclusion #
+*Paracentrosus lividus*
+
+#Information système#
+
+#Bibliographie#
+
 
